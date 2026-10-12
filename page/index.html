@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ec">
+  <meta name="description" content="A friendly, hands-on introduction to Python. Learn the fundamentals with clear explanations and practical code examples.">
+  <title>Python, step by step | A beginner's field guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f3ec;
+      --surface: #fffefa;
+      --ink: #202b28;
+      --muted: #66716b;
+      --line: #dedfd5;
+      --green: #246b54;
+      --green-dark: #194d3d;
+      --blue: #386c9b;
+      --gold: #e8b849;
+      --code: #202c29;
+      --code-ink: #e6eee8;
+      --mono: "DM Mono", Consolas, monospace;
+      --sans: "DM Sans", "Segoe UI", sans-serif;
+      --serif: "Fraunces", Georgia, serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+    a { color: inherit; }
+    button { font: inherit; }
+    .progress { position: fixed; z-index: 20; inset: 0 auto auto 0; width: 0; height: 3px; background: var(--green); }
+    .topbar { position: sticky; z-index: 10; top: 0; border-bottom: 1px solid var(--line); background: rgb(245 243 236 / 94%); backdrop-filter: blur(12px); }
+    .topbar-inner { max-width: 1180px; min-height: 64px; margin: auto; padding: 0 28px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: .02em; }
+    .brand-mark { display: grid; width: 29px; height: 29px; place-items: center; border-radius: 8px; background: var(--green); color: white; font-family: var(--mono); font-size: 14px; }
+    .top-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 13px; }
+    .top-links a { text-decoration: none; }
+    .top-links a:hover, .toc a:hover { color: var(--green); }
+    .top-links .start-link { padding: 8px 13px; border: 1px solid var(--line); border-radius: 5px; color: var(--ink); }
+    .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background-color: var(--surface); background-image: radial-gradient(#829185 0.65px, transparent 0.65px); background-size: 20px 20px; }
+    .hero-inner { position: relative; max-width: 1180px; min-height: 385px; margin: auto; padding: 63px 28px 58px; display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 56px; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 17px; color: var(--green); font-family: var(--mono); font-size: 11px; letter-spacing: .09em; text-transform: uppercase; }
+    .eyebrow::before { width: 19px; height: 1px; background: var(--green); content: ""; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 580px; margin-bottom: 17px; font-family: var(--serif); font-size: clamp(42px, 5.2vw, 65px); font-weight: 500; line-height: 1.06; }
+    h1 em { color: var(--green); font-weight: 500; }
+    .hero-copy { max-width: 490px; margin-bottom: 25px; color: var(--muted); font-size: 16px; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .primary-link { padding: 11px 16px; border-radius: 5px; background: var(--green); color: white; font-size: 13px; font-weight: 600; text-decoration: none; }
+    .primary-link:hover { background: var(--green-dark); }
+    .read-time { color: var(--muted); font-size: 12px; }
+    .hero-art { position: relative; display: grid; min-height: 232px; place-items: center; }
+    .hero-art::before { position: absolute; width: 230px; height: 230px; border: 1px solid #d7dfd3; border-radius: 50%; content: ""; }
+    .hero-art::after { position: absolute; width: 184px; height: 184px; border: 1px dashed #c8d2c9; border-radius: 50%; content: ""; }
+    .python-logo { z-index: 1; width: 170px; max-width: 72%; height: auto; }
+    .art-note { position: absolute; z-index: 2; right: 4%; bottom: 14px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--muted); font-family: var(--mono); font-size: 10px; }
+    .hero-index { position: absolute; top: 25px; right: 28px; color: #a1a79d; font-family: var(--mono); font-size: 11px; }
+    .layout { max-width: 1180px; margin: auto; padding: 49px 28px 90px; display: grid; grid-template-columns: 204px minmax(0, 720px); justify-content: space-between; gap: 64px; }
+    .toc { position: sticky; top: 94px; align-self: start; padding: 10px 0; }
+    .toc-title { margin: 0 0 12px; color: #899089; font-family: var(--mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; }
+    .toc ol { margin: 0; padding: 0; list-style: none; }
+    .toc li { margin: 1px 0; }
+    .toc a { display: block; padding: 6px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: 12px; text-decoration: none; transition: color .15s, border-color .15s; }
+    .toc a.active { border-color: var(--green); color: var(--green-dark); font-weight: 700; }
+    .lesson { min-width: 0; }
+    .intro { padding-bottom: 29px; border-bottom: 1px solid var(--line); color: var(--muted); }
+    .intro strong { color: var(--ink); }
+    .lesson-section { padding: 36px 0 34px; border-bottom: 1px solid var(--line); scroll-margin-top: 88px; }
+    .section-kicker { margin-bottom: 6px; color: var(--green); font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+    h2 { margin-bottom: 12px; font-family: var(--serif); font-size: 30px; font-weight: 500; line-height: 1.2; }
+    h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 700; }
+    .lesson-section > p { max-width: 660px; color: #525e58; }
+    .code-wrap { position: relative; margin: 17px 0 20px; overflow: hidden; border: 1px solid #34443e; border-radius: 6px; background: var(--code); }
+    .code-head { min-height: 35px; padding: 6px 13px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #394741; color: #a7b7ae; font-family: var(--mono); font-size: 10px; }
+    .copy-button { padding: 3px 8px; border: 1px solid #506058; border-radius: 3px; background: transparent; color: #d4dfd7; cursor: pointer; font-family: var(--sans); font-size: 10px; }
+    .copy-button:hover { border-color: #a7c5b4; color: white; }
+    pre { margin: 0; padding: 14px 16px 17px; overflow-x: auto; color: var(--code-ink); font-family: var(--mono); font-size: 12px; line-height: 1.8; tab-size: 4; }
+    code { font-family: var(--mono); }
+    .kw { color: #a9c7ed; }
+    .str { color: #dfcc91; }
+    .num { color: #e2aa8d; }
+    .comment { color: #91a198; }
+    .fn { color: #acd4b6; }
+    .output { padding: 8px 14px; border-top: 1px solid #394741; color: #a5b6ac; font-family: var(--mono); font-size: 11px; }
+    .callout { margin: 18px 0 0; padding: 12px 15px; border-left: 3px solid var(--gold); background: #f0eddf; color: #4e574f; font-size: 13px; }
+    .callout strong { color: var(--ink); }
+    .inline-code { padding: 2px 5px; border-radius: 3px; background: #e9e9df; color: var(--green-dark); font-size: .9em; }
+    .concept-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 17px 0; }
+    .concept { padding: 12px 14px; border: 1px solid var(--line); border-radius: 5px; background: rgb(255 254 250 / 70%); }
+    .concept strong { display: block; margin-bottom: 3px; color: var(--green-dark); font-size: 13px; }
+    .concept span { color: var(--muted); font-size: 12px; }
+    .next-steps { margin-top: 34px; padding: 21px 23px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+    .next-steps h2 { margin-bottom: 7px; font-size: 23px; }
+    .next-steps p { margin-bottom: 0; color: var(--muted); font-size: 13px; }
+    footer { padding: 21px 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; text-align: center; }
+    footer a { color: var(--green); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    @media (max-width: 760px) {
+      .topbar-inner { min-height: 58px; padding: 0 18px; }
+      .top-links { gap: 13px; }
+      .top-links a:not(.start-link) { display: none; }
+      .hero-inner { min-height: 0; padding: 43px 20px 31px; grid-template-columns: 1fr; gap: 13px; }
+      h1 { max-width: 500px; font-size: clamp(42px, 10vw, 57px); }
+      .hero-art { min-height: 156px; }
+      .hero-art::before { width: 154px; height: 154px; }
+      .hero-art::after { width: 126px; height: 126px; }
+      .python-logo { width: 116px; }
+      .art-note { right: calc(50% - 123px); bottom: 0; }
+      .hero-index { top: 15px; right: 19px; }
+      .layout { padding: 22px 20px 62px; grid-template-columns: 1fr; gap: 22px; }
+      .toc { position: relative; top: auto; padding: 0 0 13px; border-bottom: 1px solid var(--line); }
+      .toc-title { margin-bottom: 7px; }
+      .toc ol { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 3px; scrollbar-width: thin; }
+      .toc li { flex: 0 0 auto; }
+      .toc a { padding: 5px 9px; border: 1px solid var(--line); border-radius: 4px; font-size: 11px; white-space: nowrap; }
+      .toc a.active { border-color: var(--green); }
+      .lesson-section { padding: 29px 0; }
+    }
+    @media (max-width: 420px) {
+      .brand { font-size: 12px; }
+      .top-links .start-link { padding: 7px 9px; font-size: 11px; }
+      .hero-copy { font-size: 14px; }
+      .concept-grid { grid-template-columns: 1fr; }
+      pre { font-size: 11px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="Python, step by step home"><span class="brand-mark">Py</span><span>PYTHON / FIELD GUIDE</span></a>
+      <nav class="top-links" aria-label="Main navigation">
+        <a href="#lessons">The lessons</a>
+        <a href="#functions">Functions</a>
+        <a class="start-link" href="#getting-started">Start learning <span aria-hidden="true">&rarr;</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="page-title">
+      <span class="hero-index">VOL. 01 &nbsp; / &nbsp; BEGINNER</span>
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">A friendly introduction to code</p>
+          <h1 id="page-title">Python, <em>step by step.</em></h1>
+          <p class="hero-copy">A hands-on field guide to your first programming language. Learn the building blocks, try small examples, and start making things of your own.</p>
+          <div class="hero-actions">
+            <a class="primary-link" href="#getting-started">Begin with lesson one <span aria-hidden="true">&rarr;</span></a>
+            <span class="read-time">8 short lessons &middot; about 15 minutes</span>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="The Python programming language logo">
+          <img class="python-logo" src="https://www.python.org/static/community_logos/python-logo-generic.svg" alt="Python programming language">
+          <span class="art-note">clear syntax, useful ideas</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="layout" id="lessons">
+      <nav class="toc" aria-label="Lesson sections">
+        <p class="toc-title">In this guide</p>
+        <ol>
+          <li><a href="#getting-started">01 &nbsp; Get started</a></li>
+          <li><a href="#variables">02 &nbsp; Variables</a></li>
+          <li><a href="#types">03 &nbsp; Data types</a></li>
+          <li><a href="#decisions">04 &nbsp; Decisions</a></li>
+          <li><a href="#loops">05 &nbsp; Loops</a></li>
+          <li><a href="#functions">06 &nbsp; Functions</a></li>
+          <li><a href="#collections">07 &nbsp; Collections</a></li>
+          <li><a href="#errors">08 &nbsp; Errors &amp; next steps</a></li>
+        </ol>
+      </nav>
+
+      <article class="lesson">
+        <p class="intro">Python is a general-purpose programming language known for readable code and a welcoming learning curve. You can use it for <strong>automation, websites, data, science</strong>, and plenty more. Read each example from top to bottom; change a value and see what happens.</p>
+
+        <section class="lesson-section" id="getting-started">
+          <p class="section-kicker">01 &mdash; First steps</p>
+          <h2>Say hello to Python</h2>
+          <p>Python runs instructions in order. The <code class="inline-code">print()</code> function displays a value. Text goes inside quotes, and parentheses hold the function's input.</p>
+          <div class="code-wrap">
+            <div class="code-head"><span>hello.py</span><button class="copy-button" type="button">Copy code</button></div>
+            <pre><code><span class="fn">print</span>(<span class="str">"Hello, world!"</span>)
+<span class="fn">print</span>(<span class="str">"I'm learning Python."</span>)</code></pre>
+            <div class="output">Hello, world!<br>I'm learning Python.</div>
+          </div>
+          <p>Try Python in an online editor or install it from <a href="https://www.python.org/downloads/">python.org</a>. Save a file with a <code class="inline-code">.py</code> ending, then run it with <code class="inline-code">python hello.py</code>.</p>
+          <div class="callout"><strong>Small detail, big help:</strong> Python uses indentation to group code. Four spaces is the usual convention.</div>
+        </section>
+
+        <section class="lesson-section" id="variables">
+          <p class="section-kicker">02 &mdash; Store a value</p>
+          <h2>Give information a name</h2>
+          <p>A variable is a name for a value. Use <code class="inline-code">=</code> to assign one. Choose names that explain what the value represents; Python is case-sensitive, so <code class="inline-code">score</code> and <code class="inline-code">Score</code> are different names.</p>
+          <div class="code-wrap">
+            <div class="code-head"><span>variables.py</span><button class="copy-button" type="button">Copy code</button></div>
+            <pre><code>name = <span class="str">"Mina"</span>
+score = <span class="num">8</span>
+score = score + <span class="num">1</span>
+
+<span class="fn">print</span>(<span class="str">f"{name} has {score} points."</span>)</code></pre>
+            <div class="output">Mina has 9 points.</div>
+          </div>
+          <p>The <code class="inline-code">f</code> before a string lets you insert a value inside braces. It's a handy way to build readable messages.</p>
+        </section>
+
+        <section class="lesson-section" id="types">
+          <p class="section-kicker">03 &mdash; Values have shapes</p>
+          <h2>Meet the basic data types</h2>
+          <p>Different kinds of information support different operations. Here are four types you'll use constantly:</p>
+          <div class="concept-grid">
+            <div class="concept"><strong>String &middot; <code>str</code></strong><span>Text, wrapped in quotes: <code>"hello"</code></span></div>
+            <div class="concept"><strong>Integer &middot; <code>int</code></strong><span>Whole numbers: <code>42</code></span></div>
+            <div class="concept"><strong>Float &middot; <code>float</code></strong><span>Decimals: <code>3.14</code></span></div>
+            <div class="concept"><strong>Boolean &middot; <code>bool</code></strong><span>True or false: <code>True</code></span></div>
+          </div>
+          <div class="code-wrap">
+            <div class="code-head"><span>types.py</span><button class="copy-button" type="button">Copy code</button></div>
+            <pre><code>temperature = <span class="num">21.5</span>
+is_sunny = <span class="kw">True</span>
+city = <span class="str">"Oslo"</span>
+
+<span class="fn">print</span>(<span class="fn">type</span>(temperature))  <span class="comment"># &lt;class 'float'&gt;</span></code></pre>
+          </div>
+          <p>Convert between types with functions such as <code class="inline-code">int("12")</code>, <code class="inline-code">float("3.5")</code>, and <code class="inline-code">str(42)</code>.</p>
+        </section>
+
+        <section class="lesson-section" id="decisions">
+          <p class="section-kicker">04 &mdash; Choose a path</p>
+          <h2>Make decisions with <code>if</code></h2>
+          <p>Use an <code class="inline-code">if</code> statement to run code only when a condition is true. Add <code class="inline-code">elif</code> for another possibility and <code class="inline-code">else</code> for everything that remains.</p>
+          <div class="code-wrap">
+            <div class="code-head"><span>decisions.py</span><button class="copy-button" type="button">Copy code</button></div>
+            <pre><code>temperature = <span class="num">18</span>
+
+<span class="kw">if</span> temperature &gt;= <span class="num">25</span>:
+    <span class="fn">print</span>(<span class="str">"Warm day"</span>)
+<span class="kw">elif</span> temperature &gt;= <span class="num">15</span>:
+    <span class="fn">print</span>(<span class="str">"Light jacket weather"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Bring a coat"</span>)</code></pre>
+            <div class="output">Light jacket weather</div>
+          </div>
+          <p>Comparisons include <code class="inline-code">==</code> (equal), <code class="inline-code">!=</code> (not equal), <code class="inline-code">&gt;</code>, <code class="inline-code">&lt;</code>, <code class="inline-code">&gt;=</code>, and <code class="inline-code">&lt;=</code>. Combine conditions with <code class="inline-code">and</code> or <code class="inline-code">or</code>.</p>
+        </section>
+
+        <section class="lesson-section" id="loops">
+          <p class="section-kicker">05 &mdash; Repeat a task</p>
+          <h2>Let loops do the repeating</h2>
+          <p>A <code class="inline-code">for</code> loop visits each item in a sequence. <code class="inline-code">range(1, 4)</code> produces 1, 2, 3: the starting number is included, but the ending number isn't.</p>
+          <div class="code-wrap">
+            <div class="code-head"><span>loops.py</span><button class="copy-button" type="button">Copy code</button></div>
+            <pre><code><span class="kw">for</span> number <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">4</span>):
+    <span class="fn">print</span>(<span class="str">f"Count: {number}"</span>)</code></pre>
+            <div class="output">Count: 1<br>Count: 2<br>Count: 3</div>
+          </div>
+          <p>Use a <code class="inline-code">while</code> loop when you want to repeat until a condition changes. Make sure that condition can eventually become false, or the loop will never stop.</p>
+        </section>
+
+        <section class="lesson-section" id="functions">
+          <p class="section-kicker">06 &mdash; Reuse an idea</p>
+          <h2>Bundle steps into functions</h2>
+          <p>A function gives a set of instructions a name. Define one with <code class="inline-code">def</code>, pass information in through parameters, and use <code class="inline-code">return</code> to send a result back.</p>
+          <div class="code-wrap">
+            <div class="code-head"><span>functions.py</span><button class="copy-button" type="button">Copy code</button></div>
+            <pre><code><span class="kw">def</span> <span class="fn">greet</span>(name):
+    <span class="kw">return</span> <span class="str">f"Hello, {name}!"</span>
+
+message = <span class="fn">greet</span>(<span class="str">"Ravi"</span>)
+<span class="fn">print</span>(message)</code></pre>
+            <div class="output">Hello, Ravi!</div>
+          </div>
+          <p>Functions are especially useful when you want to repeat an operation or give a complicated task a simple, descriptive name.</p>
+        </section>
+
+        <section class="lesson-section" id="collections">
+          <p class="section-kicker">07 &mdash; Keep things together</p>
+          <h2>Work with lists and dictionaries</h2>
+          <p>A list stores an ordered group of items. A dictionary stores values under named keys. Both can grow as your program runs.</p>
+          <div class="code-wrap">
+            <div class="code-head"><span>collections.py</span><button class="copy-button" type="button">Copy code</button></div>
+            <pre><code>fruits = [<span class="str">"pear"</span>, <span class="str">"plum"</span>]
+fruits.append(<span class="str">"peach"</span>)
+<span class="fn">print</span>(fruits[<span class="num">0</span>])  <span class="comment"># pear</span>
+
+person = {<span class="str">"name"</span>: <span class="str">"Ari"</span>, <span class="str">"age"</span>: <span class="num">27</span>}
+<span class="fn">print</span>(person[<span class="str">"name"</span>])  <span class="comment"># Ari</span></code></pre>
+          </div>
+          <p>List positions start at zero, so <code class="inline-code">fruits[0]</code> is the first item. For a dictionary, look up a value using its key, like <code class="inline-code">person["name"]</code>.</p>
+        </section>
+
+        <section class="lesson-section" id="errors">
+          <p class="section-kicker">08 &mdash; Keep learning</p>
+          <h2>Handle errors, one step at a time</h2>
+          <p>Errors are useful clues. When an operation might fail, <code class="inline-code">try</code> and <code class="inline-code">except</code> let your program respond instead of stopping unexpectedly.</p>
+          <div class="code-wrap">
+            <div class="code-head"><span>errors.py</span><button class="copy-button" type="button">Copy code</button></div>
+            <pre><code>text = <span class="str">"42"</span>
+
+<span class="kw">try</span>:
+    number = <span class="fn">int</span>(text)
+    <span class="fn">print</span>(number + <span class="num">1</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="str">"Please enter a whole number."</span>)</code></pre>
+            <div class="output">43</div>
+          </div>
+          <div class="callout"><strong>A good next project:</strong> Make a tiny quiz. Store questions in a list, ask for an answer with <code class="inline-code">input()</code>, and keep score in a variable.</div>
+        </section>
+
+        <aside class="next-steps">
+          <h2>That's your first toolkit.</h2>
+          <p>Change the examples, break them, and fix them. Next, explore Python's <a href="https://docs.python.org/3/tutorial/">official tutorial</a> or pick a small project you actually want to build.</p>
+        </aside>
+      </article>
+    </div>
+  </main>
+
+  <footer>Made for curious beginners &middot; <a href="https://www.python.org/">Python is open source</a></footer>
+  <script>
+    const progress = document.querySelector('.progress');
+    const sections = [...document.querySelectorAll('.lesson-section')];
+    const links = [...document.querySelectorAll('.toc a')];
+
+    function updateProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = `${scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0}%`;
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        links.forEach((link) => {
+          const isActive = link.hash === `#${entry.target.id}`;
+          link.classList.toggle('active', isActive);
+          if (isActive) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      }
+    }, { rootMargin: '-15% 0px -70% 0px' });
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    document.querySelectorAll('.copy-button').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const code = button.closest('.code-wrap').querySelector('pre code').innerText;
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = 'Copied!';
+          window.setTimeout(() => { button.textContent = 'Copy code'; }, 1400);
+        } catch {
+          button.textContent = 'Select code to copy';
+          window.setTimeout(() => { button.textContent = 'Copy code'; }, 1800);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
